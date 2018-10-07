@@ -15,8 +15,15 @@ CWinApp theApp;
 
 using namespace std;
 
+enum game_mode
+{
+	_manual,
+	_auto
+};
+
 int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 {
+	game_mode mode;
 	int nRetCode = 0;
 
 	HMODULE hModule = ::GetModuleHandle(NULL);
@@ -32,7 +39,13 @@ int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 		}
 		else
 		{
-			cout<<"any key to bye, please";
+			cout << "Hello\r\n";
+			cout << "wanna play manually? m or a\r\n";
+			mode =  (cin.get() == 'm') ? _manual : _auto;
+			
+
+
+			cout<<"any key to say bye\r\n";
 			cin.get();
 		}
 	}
