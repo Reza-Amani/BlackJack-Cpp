@@ -24,6 +24,9 @@
     <ClInclude Include="Irule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BJrule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -35,7 +38,7 @@
     <ClCompile Include="Card.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Irule.cpp">
+    <ClCompile Include="BJrule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

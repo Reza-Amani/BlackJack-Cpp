@@ -1,5 +1,4 @@
 #pragma once
-#include "Irule.h"
 
 enum Suits
 {
@@ -41,7 +40,7 @@ public:
 class Irule
 {
 public:
-	int card_value(Suits s, Ranks r);
+	virtual int card_value(Suits s, Ranks r)=0;
 	Card* p;
 	Irule();
 	~Irule();

@@ -10,7 +10,7 @@ Card::Card(Suits s, Ranks r)
 
 int Card::get_value(Irule& rule)
 {
-	return 0;//rule.card_value(suit, rank);
+	return rule.card_value(suit, rank);
 }
 
 
