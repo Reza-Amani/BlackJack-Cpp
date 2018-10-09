@@ -26,9 +26,9 @@ enum Ranks
 	_Ace
 };
 
+class Irule;
 class Card
 {
-	Irule rule();
 	Suits suit;
 	Ranks rank;
 public:
@@ -38,3 +38,11 @@ public:
 };
 
 
+class Irule
+{
+public:
+	int card_value(Suits s, Ranks r);
+	Card* p;
+	Irule();
+	~Irule();
+};
