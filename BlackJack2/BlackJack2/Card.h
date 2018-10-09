@@ -1,4 +1,5 @@
 #pragma once
+#include "Irule.h"
 
 enum Suits
 {
@@ -27,12 +28,12 @@ enum Ranks
 
 class Card
 {
+	Irule rule();
 	Suits suit;
 	Ranks rank;
-	//Irule& rule;
 public:
 	Card(Suits s, Ranks r);
-	int get_value();//Irule& rule);
+	int get_value(Irule& rule);
 	~Card();
 };
 
