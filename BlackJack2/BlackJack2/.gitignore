@@ -1,4 +1,6 @@
-*
+*.pdb
+*.tlog
+
 # Object files
 *.o
 *.ko
@@ -35,3 +37,4 @@
 
 *.opensdf
 Debug/
+release/
