@@ -11,10 +11,12 @@ GamePlay::GamePlay()
 
 result GamePlay::run(bool echo, bool auto_player)
 {
-	int Dealer_First, Player_pair, Player_sum=0;
+	int Dealer_First=0, Dealer_sum=0, Player_pair=0, Player_sum=0;
 
 	if (echo) std::cout << "Dealer's first: ";
 	Dealer_First = get_card(); 
+	Dealer_sum = Dealer_First;
+
 	if (echo) std::cout << Dealer_First << "\n";
 
 	if (echo) std::cout << "Player's first pair: ";
@@ -24,6 +26,8 @@ result GamePlay::run(bool echo, bool auto_player)
 	Player_pair = player_card;
 	player_card = get_card();
 	if (echo) std::cout << player_card << "\n";
+	Player_pair += player_card;
+	Player_sum = Player_pair;
 
 	std::cout << "\n player cards: ";
 	while (Player_decision(auto_player, Dealer_First, Player_pair))
