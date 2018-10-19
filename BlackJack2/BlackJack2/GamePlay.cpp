@@ -9,20 +9,50 @@ GamePlay::GamePlay()
 {
 }
 
-result GamePlay::run(bool echo, std::function<int(void)> p_get_card)
+result GamePlay::run(bool echo, bool auto_player)
 {
-	DealerFirst = p_get_card();
-	if(echo)
-		std::cout << DealerFirst;
-	return (result)0;
+	int Dealer_First, Player_pair, Player_sum=0;
+
+	if (echo) std::cout << "Dealer's first: ";
+	Dealer_First = get_card(); 
+	if (echo) std::cout << Dealer_First << "\n";
+
+	if (echo) std::cout << "Player's first pair: ";
+	int player_card;
+	player_card = get_card();
+	if (echo) std::cout << player_card << " ";
+	Player_pair = player_card;
+	player_card = get_card();
+	if (echo) std::cout << player_card << "\n";
+
+	std::cout << "\n player cards: ";
+	while (Player_decision(auto_player, Dealer_First, Player_pair))
+	{
+		player_card = get_card();
+		if (echo) std::cout << player_card << " ";
+		Player_sum += player_card;
+		if (Player_sum > 21)
+			return result::_LOSE;
+		else if (Player_sum == 21)
+			return result::_WIN;
+	}
+	return result::_PUSH;
 }
 
-void GamePlay::TakeFirstDealerCard(Ranks r)
+bool GamePlay::Player_decision(bool auto_player, int Dealer_First, int Player_pair)
 {
-	DealerFirst = get_card();
-}
-void TakeFirstPlayerCards(Ranks r1, Ranks r2);
+	if (auto_player)
+	{
 
+	}
+	else
+	{
+		std::cout << "continue?y/n ";
+		char c;
+		std::cin >> c;
+		return c == 'y';
+	}
+}
 
 GamePlay::~GamePlay()
 {
