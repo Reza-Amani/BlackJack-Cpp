@@ -4,7 +4,7 @@
 class GamePlay
 {
 public:
-	std::function<void(void)> callback;
+	std::function<int(void)> callback;
 	//func* GetGo_Nogo  --main decides if nogo at any threshold
 	//func* int GetCard()  --main decides if rand card or all combinations
 	//result,sum@Nogo, sum@firstpair, DealerFirst run();	//main will make 3D array of results and number of occcurances
