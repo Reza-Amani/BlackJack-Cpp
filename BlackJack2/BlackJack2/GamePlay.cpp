@@ -33,7 +33,7 @@ result GamePlay::run(bool echo, bool auto_player)
 
 	Player_cards_no = 2;
 	if(echo) std::cout << "\n player cards: ";
-	while (Player_decision(auto_player, Dealer_First, Player_pair))
+	while (Player_decision(auto_player, Dealer_First, Player_sum, Player_cards_no))
 	{
 		player_card = get_card();
 		Player_cards_no++;
@@ -70,11 +70,14 @@ result GamePlay::run(bool echo, bool auto_player)
 		return result::_WIN;
 }
 
-bool GamePlay::Player_decision(bool auto_player, int Dealer_First, int Player_pair)
+bool GamePlay::Player_decision(bool auto_player, int Dealer_First, int Player_sum, int Player_cards_no)
 {
 	if (auto_player)
 	{
-
+		if (Player_sum < 17)
+			return true;
+		else
+			return false;
 	}
 	else
 	{
