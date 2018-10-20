@@ -10,7 +10,7 @@ enum result
 class GamePlay
 {
 public:
-	std::function<int(void)> get_card;
+	std::function<int(int&)> get_card;
 	//func* GetGo_Nogo  --main decides if nogo at any threshold
 	//func* int GetCard()  --main decides if rand card or all combinations
 	//result,sum@Nogo, sum@firstpair, DealerFirst run();	//main will make 3D array of results and number of occcurances
