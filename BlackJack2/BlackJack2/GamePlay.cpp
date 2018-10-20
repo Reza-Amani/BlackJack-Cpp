@@ -9,7 +9,7 @@ GamePlay::GamePlay()
 {
 }
 
-result GamePlay::run(bool echo, bool auto_player)
+float GamePlay::run(bool echo, bool auto_player)
 {
 	int Dealer_First=0, Dealer_sum=0, Player_pair=0, Player_sum=0, Player_cards_no=0;
 	int Dealer_aces = 0, Player_aces = 0;
@@ -30,7 +30,7 @@ result GamePlay::run(bool echo, bool auto_player)
 	Player_pair += player_card;
 	Player_sum = Player_pair;
 	if (Player_sum == 21)
-		return result::_WIN;
+		return 1.5;	//natural blackjack
 
 	Player_cards_no = 2;
 	if(echo) std::cout << "\n player cards: ";
@@ -46,11 +46,11 @@ result GamePlay::run(bool echo, bool auto_player)
 			Player_sum -= 10;
 		}
 		if (Player_sum > 21)
-			return result::_LOSE;
+			return -1;
 		else if (Player_sum == 21)
-			return result::_WIN;
+			return 1;
 		else if (Player_cards_no >= 5)
-			return result::_WIN;
+			return 1;
 	}
 
 	if (echo) { std::cout << "\r\n Dealer's turn: "; }
@@ -69,17 +69,17 @@ result GamePlay::run(bool echo, bool auto_player)
 	}	while (Dealer_sum < 17);
 
 	if (Dealer_sum > 22)
-		return result::_WIN;
+		return 1;
 	else if (Dealer_sum == 22)
-		return result::_PUSH;
+		return 0;
 	else if (Dealer_sum == 21)
-		return result::_LOSE;
+		return -1;
 	else if (Dealer_sum > Player_sum)
-		return result::_LOSE;
+		return -1;
 	else if (Dealer_sum == Player_sum)
-		return result::_PUSH;
+		return 0;
 	else
-		return result::_WIN;
+		return 1;
 }
 
 bool GamePlay::Player_decision(bool auto_player, int Dealer_First, int Player_sum, int Player_cards_no)
