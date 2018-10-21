@@ -11,6 +11,7 @@ public:
 	GamePlay();
 	~GamePlay();
 	float run(bool echo, bool auto_player);
+	float run_doubled(bool echo, bool auto_player, int Dealer_First, int Player_pair);	//run after first pair, continue only for 1 hit, to determine if doubling was a good idea (return >0?)
 	bool Player_decision(bool auto_player, int Dealer_First, int Player_sum, int Player_cards_no);
 };
 
