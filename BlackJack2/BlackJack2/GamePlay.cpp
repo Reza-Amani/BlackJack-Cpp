@@ -9,10 +9,11 @@ GamePlay::GamePlay()
 {
 }
 
-float GamePlay::run(bool echo, bool auto_player)
+float GamePlay::run(bool echo, bool auto_player, bool use_doubling)
 {
 	int Dealer_First=0, Dealer_sum=0, Player_pair=0, Player_sum=0, Player_cards_no=0;
 	int Dealer_aces = 0, Player_aces = 0;
+	int bet_factor = 1;
 
 	if (echo) std::cout << "Dealer's first: ";
 	Dealer_First = get_card(Dealer_aces);
@@ -30,15 +31,15 @@ float GamePlay::run(bool echo, bool auto_player)
 	Player_pair += player_card;
 	Player_sum = Player_pair;
 	if (Player_sum == 21)
-		return 1.5;	//natural blackjack
+		return 1.5 * bet_factor;	//natural blackjack
 
 	Player_cards_no = 2;
-	if(echo) std::cout << "\n player cards: ";
-	while (Player_decision(auto_player, Dealer_First, Player_sum, Player_cards_no))
-	{
+	if (use_doubling && Player_aces==0 && if_doubling(Dealer_First, Player_pair) )
+	{	//doubled. only one card will be drawn
+		bet_factor = 2;
 		player_card = get_card(Player_aces);
 		Player_cards_no++;
-		if (echo) std::cout << player_card << " ";
+		if (echo) std::cout << "\r\nDoubled. single card: " << player_card << " ";
 		Player_sum += player_card;
 		if (Player_sum > 21 && Player_aces > 0)
 		{
@@ -46,11 +47,33 @@ float GamePlay::run(bool echo, bool auto_player)
 			Player_sum -= 10;
 		}
 		if (Player_sum > 21)
-			return -1;
+			return -1 * bet_factor;
 		else if (Player_sum == 21)
-			return 1;
+			return 1 * bet_factor;
 		else if (Player_cards_no >= 5)
-			return 1;
+			return 1 * bet_factor;
+	}
+	else
+	{
+		if (echo) std::cout << "\r\n player cards: ";
+		while (Player_decision(auto_player, Dealer_First, Player_sum, Player_cards_no))
+		{
+			player_card = get_card(Player_aces);
+			Player_cards_no++;
+			if (echo) std::cout << player_card << " ";
+			Player_sum += player_card;
+			if (Player_sum > 21 && Player_aces > 0)
+			{
+				Player_aces--;
+				Player_sum -= 10;
+			}
+			if (Player_sum > 21)
+				return -1 * bet_factor;
+			else if (Player_sum == 21)
+				return 1 * bet_factor;
+			else if (Player_cards_no >= 5)
+				return 1 * bet_factor;
+		}
 	}
 
 	if (echo) { std::cout << "\r\n Dealer's turn: "; }
@@ -69,17 +92,30 @@ float GamePlay::run(bool echo, bool auto_player)
 	}	while (Dealer_sum < 17);
 
 	if (Dealer_sum > 22)
-		return 1;
+		return 1 * bet_factor;
 	else if (Dealer_sum == 22)
-		return 0;
+		return 0 * bet_factor;
 	else if (Dealer_sum == 21)
-		return -1;
+		return -1 * bet_factor;
 	else if (Dealer_sum > Player_sum)
-		return -1;
+		return -1 * bet_factor;
 	else if (Dealer_sum == Player_sum)
-		return 0;
+		return 0 * bet_factor;
 	else
-		return 1;
+		return 1 * bet_factor;
+}
+
+bool GamePlay::if_doubling(int Dealer_first, int Player_pair)
+{	//decides if doubling is suitable or no
+	if (Player_pair == 11)
+		return true;
+	else if (Player_pair == 10 && Dealer_first < 10)
+		return true;
+	else if (Player_pair == 9 && (Dealer_first == 5 || Dealer_first == 6))
+		return true;
+	else
+		return false;
+
 }
 
 bool GamePlay::Player_decision(bool auto_player, int Dealer_First, int Player_sum, int Player_cards_no)
